@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-dark: #0a0b0e;
+    --color-dark-card: #12151b;
+    --color-dark-surface: #181c24;
+    --color-gold: #d4af37;
+    --color-gold-light: #e6ca65;
+    --color-gold-dark: #b8932b;
+    --color-white: #ffffff;
+  }
+
+  body {
+    font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #0a0b0e;
+    color: #e2e8f0;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-condensed {
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Luxury Gold & Dark Gradients */
+.gold-gradient {
+  background: linear-gradient(135deg, #e6ca65 0%, #d4af37 50%, #b8932b 100%);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #f3de8a 0%, #d4af37 50%, #c59f27 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border {
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+.gold-border-glow {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+/* Hide scrollbar for clean horizontal tracks while preserving scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
