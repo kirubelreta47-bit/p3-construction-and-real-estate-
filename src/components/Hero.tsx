@@ -2,24 +2,17 @@ import React from 'react';
 import { motion } from 'motion/react';
 import {
   ArrowRight,
-  ShieldCheck,
-  HardHat,
-  Sparkles,
-  Building2,
-  MapPin,
-  Clock,
-  Layers,
-  ChevronRight
+  HardHat
 } from 'lucide-react';
-import { COMPANY_INFO } from '../data';
-import heroBgImage from '../assets/hero-bg.jpg';
+import heroBgImage from '../assets/hero-bg.webp';
 
 interface HeroProps {
   onOpenQuote: () => void;
   onExploreProperties: () => void;
+  onOpenBrochure?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onExploreProperties }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onExploreProperties, onOpenBrochure }) => {
   return (
     <section
       id="top"
@@ -30,6 +23,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onExploreProperties }) 
         <img
           src={heroBgImage}
           alt="Active high-rise concrete construction site with tower cranes at sunset in Addis Ababa"
+          width="1920"
+          height="1080"
+          fetchPriority="high"
           className="w-full h-full object-cover object-center lg:object-[center_35%] scale-100 contrast-[1.08] brightness-[0.80]"
         />
 
@@ -54,24 +50,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onExploreProperties }) 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-20 sm:py-28 relative z-10 w-full">
         <div className="max-w-3xl flex flex-col items-start text-left space-y-6">
 
-          {/* Top Accreditation Pill */}
-          <motion.div
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-black/80 backdrop-blur-md border border-[#d4af37]/50 text-[#d4af37] px-4 py-1.5 rounded-full shadow-2xl"
-          >
-            <ShieldCheck className="w-4 h-4 text-[#d4af37] shrink-0" />
-            <span className="text-xs font-bold uppercase tracking-widest font-mono">
-              P3 CONSTRUCTION GROUP & REAL ESTATE • CLASS-1 GC
-            </span>
-          </motion.div>
-
           {/* Primary Big Bold Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6 }}
             className="text-4xl sm:text-6xl lg:text-7xl font-black font-sans tracking-tight uppercase leading-[1.05] text-white drop-shadow-md"
           >
             Building Excellence & <br />
@@ -95,12 +78,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onExploreProperties }) 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="pt-4 flex flex-wrap items-center gap-4"
+            className="pt-4 flex flex-wrap items-center gap-3 sm:gap-4"
           >
             <button
               id="hero-explore-realestate-cta"
               onClick={onExploreProperties}
-              className="px-8 py-4 bg-gradient-to-r from-[#e6ca65] via-[#d4af37] to-[#b8932b] hover:from-[#d4af37] hover:to-[#a68221] text-[#0a0b0e] text-xs sm:text-sm font-black uppercase tracking-wider rounded-xl shadow-2xl shadow-[#d4af37]/30 hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer font-sans flex items-center gap-2"
+              className="px-7 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-[#e6ca65] via-[#d4af37] to-[#b8932b] hover:from-[#d4af37] hover:to-[#a68221] text-[#0a0b0e] text-xs sm:text-sm font-black uppercase tracking-wider rounded-xl shadow-2xl shadow-[#d4af37]/30 hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer font-sans flex items-center gap-2"
             >
               <span>EXPLORE PROPERTIES</span>
               <ArrowRight className="w-4 h-4 text-[#0a0b0e]" />
@@ -109,11 +92,20 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onExploreProperties }) 
             <button
               id="hero-primary-cta"
               onClick={onOpenQuote}
-              className="px-8 py-4 bg-black/75 hover:bg-black/95 text-white text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl border border-white/25 hover:border-[#d4af37]/70 transition-all duration-200 cursor-pointer backdrop-blur-md flex items-center gap-2 shadow-2xl"
+              className="px-7 sm:px-8 py-3.5 sm:py-4 bg-black/75 hover:bg-black/95 text-white text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl border border-white/25 hover:border-[#d4af37]/70 transition-all duration-200 cursor-pointer backdrop-blur-md flex items-center gap-2 shadow-2xl"
             >
               <HardHat className="w-4 h-4 text-[#d4af37]" />
               <span>REQUEST CONSULTATION</span>
             </button>
+
+            {onOpenBrochure && (
+              <button
+                onClick={onOpenBrochure}
+                className="px-5 py-3.5 sm:py-4 bg-white/5 hover:bg-white/10 text-white/90 hover:text-white text-xs font-bold uppercase tracking-wider rounded-xl border border-white/10 transition-all duration-200 cursor-pointer backdrop-blur-md flex items-center gap-1.5"
+              >
+                <span>2026 DOSSIER PDF</span>
+              </button>
+            )}
           </motion.div>
         </div>
       </div>

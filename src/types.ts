@@ -121,3 +121,21 @@ export interface ManifestoPillar {
   specTag: string;
   ebcsRef: string;
 }
+
+export interface FAQItem {
+  id: string;
+  question: string;
+  questionAmharic?: string;
+  answer: string;
+  category: 'LEGAL & TITLE' | 'PAYMENT & ESCROW' | 'CONSTRUCTION' | 'DIASPORA' | 'WARRANTY';
+}
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  credential: string;
+  experience: string;
+  specialty: string;
+  image: string;
+}

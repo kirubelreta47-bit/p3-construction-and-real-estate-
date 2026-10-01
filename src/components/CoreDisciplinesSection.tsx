@@ -51,8 +51,8 @@ export const CoreDisciplinesSection: React.FC<CoreDisciplinesSectionProps> = ({
           </p>
         </motion.div>
 
-        {/* 3-Column Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+        {/* 3-Column Feature Cards Grid (Horizontal scroll on mobile, grid on desktop) */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory pb-6 pt-2 gap-5 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 md:grid-cols-3 sm:gap-8 lg:gap-10">
           {CORE_DISCIPLINES.map((discipline, idx) => (
             <motion.div
               key={discipline.id}
@@ -62,7 +62,7 @@ export const CoreDisciplinesSection: React.FC<CoreDisciplinesSectionProps> = ({
               transition={{ duration: 0.5, delay: idx * 0.15, ease: 'easeOut' }}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
               onClick={() => onSelectDiscipline(discipline.linkService)}
-              className="group relative bg-[#0a0b0e] rounded-2xl p-8 border border-white/10 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col items-center text-center overflow-hidden hover:border-[#d4af37]/60"
+              className="group relative bg-[#0a0b0e] rounded-2xl p-8 border border-white/10 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col items-center text-center overflow-hidden hover:border-[#d4af37]/60 snap-center shrink-0 w-[84vw] max-w-[340px] sm:w-auto sm:max-w-none"
             >
               {/* Top Accent Line Glow on Hover */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-transparent group-hover:bg-gradient-to-r group-hover:from-[#e6ca65] group-hover:via-[#d4af37] group-hover:to-[#b8932b] transition-all duration-300" />

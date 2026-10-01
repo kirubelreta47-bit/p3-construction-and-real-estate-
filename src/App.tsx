@@ -1,24 +1,35 @@
 import React, { useState } from 'react';
+import { RouterProvider, useRouter } from './router';
 import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { RealEstateSection } from './components/RealEstateSection';
-import { CoreDisciplinesSection } from './components/CoreDisciplinesSection';
-import { SplitFeatureBanner } from './components/SplitFeatureBanner';
-import { RecentProjectsGrid } from './components/RecentProjectsGrid';
-import { StatsCounterBand } from './components/StatsCounterBand';
-import { LatestNewsSection } from './components/LatestNewsSection';
-import { LocationSection } from './components/LocationSection';
 import { Footer } from './components/Footer';
 
+// Pages
+import { HomePage } from './pages/HomePage';
+import { ServicesIndexPage } from './pages/ServicesIndexPage';
+import { CostEstimationPage } from './pages/CostEstimationPage';
+import { StructuralEngineeringPage } from './pages/StructuralEngineeringPage';
+import { TurnkeyConstructionPage } from './pages/TurnkeyConstructionPage';
+import { GeotechnicalPage } from './pages/GeotechnicalPage';
+import { PropertiesPage } from './pages/PropertiesPage';
+import { ProjectsPage } from './pages/ProjectsPage';
+import { ContactPage } from './pages/ContactPage';
+import { NotFoundPage } from './pages/NotFoundPage';
+
+// Shared Modals & Floating Hub
 import { QuoteModal } from './components/QuoteModal';
-import { ProjectDetailModal } from './components/ProjectDetailModal';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
+import { ProjectDetailModal } from './components/ProjectDetailModal';
 import { ArticleDetailModal } from './components/ArticleDetailModal';
+import { DownloadBrochureModal } from './components/DownloadBrochureModal';
+import { FloatingActionHub } from './components/FloatingActionHub';
 
 import { ProjectItem, NewsArticle, RealEstateProperty } from './types';
 
-export default function App() {
+function AppContent() {
+  const { pathname } = useRouter();
+
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
+  const [brochureModalOpen, setBrochureModalOpen] = useState(false);
   
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [selectedProperty, setSelectedProperty] = useState<RealEstateProperty | null>(null);
@@ -27,8 +38,9 @@ export default function App() {
   const [prefilledService, setPrefilledService] = useState<string | undefined>(undefined);
   const [prefilledTypology, setPrefilledTypology] = useState<string | undefined>(undefined);
 
-  const handleOpenQuoteWithService = (serviceTitle: string) => {
+  const handleOpenQuoteWithService = (serviceTitle?: string, typology?: string) => {
     setPrefilledService(serviceTitle);
+    setPrefilledTypology(typology);
     setQuoteModalOpen(true);
   };
 
@@ -38,68 +50,98 @@ export default function App() {
     setQuoteModalOpen(true);
   };
 
-  const scrollToRealEstate = () => {
-    const el = document.getElementById('real-estate-section');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+  const renderCurrentPage = () => {
+    // Normalise path (strip trailing slash if not root)
+    const normalized = pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+
+    switch (normalized) {
+      case '/':
+        return (
+          <HomePage
+            onOpenQuote={handleOpenQuoteWithService}
+            onOpenBrochure={() => setBrochureModalOpen(true)}
+            onSelectProject={(proj) => setSelectedProject(proj)}
+            onSelectProperty={(prop) => setSelectedProperty(prop)}
+            onSelectArticle={(art) => setSelectedArticle(art)}
+          />
+        );
+      case '/services':
+        return (
+          <ServicesIndexPage
+            onOpenQuote={(service) => handleOpenQuoteWithService(service)}
+          />
+        );
+      case '/services/cost-estimation':
+        return (
+          <CostEstimationPage
+            onOpenQuote={(service) => handleOpenQuoteWithService(service)}
+          />
+        );
+      case '/services/structural-engineering':
+        return (
+          <StructuralEngineeringPage
+            onOpenQuote={(service) => handleOpenQuoteWithService(service)}
+          />
+        );
+      case '/services/turnkey-construction':
+        return (
+          <TurnkeyConstructionPage
+            onOpenQuote={(service) => handleOpenQuoteWithService(service)}
+          />
+        );
+      case '/services/geotechnical-investigation':
+        return (
+          <GeotechnicalPage
+            onOpenQuote={(service) => handleOpenQuoteWithService(service)}
+          />
+        );
+      case '/properties':
+        return (
+          <PropertiesPage
+            onSelectProperty={(prop) => setSelectedProperty(prop)}
+            onOpenInquiry={handleOpenPropertyInquiry}
+          />
+        );
+      case '/projects':
+        return (
+          <ProjectsPage
+            onSelectProject={(proj) => setSelectedProject(proj)}
+            onOpenQuote={() => handleOpenPropertyInquiry()}
+          />
+        );
+      case '/contact':
+        return (
+          <ContactPage
+            onOpenQuote={() => handleOpenPropertyInquiry()}
+          />
+        );
+      default:
+        return <NotFoundPage />;
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d0f12] text-white font-sans selection:bg-amber-400 selection:text-gray-950">
       
-      {/* 1. Header (P3 Brand + Luxury Obsidian/Gold Nav) */}
+      {/* 1. Header (P3 Brand + Luxury Obsidian/Gold Nav + Brochure Trigger) */}
       <Header
         onOpenQuote={() => handleOpenPropertyInquiry()}
+        onOpenBrochure={() => setBrochureModalOpen(true)}
       />
 
-      {/* Main Sections Body */}
+      {/* Main Page Container */}
       <main className="flex-1">
-        {/* 2. Hero: "BUILDING LUXURY & ENGINEERING REALITY" + Real Engineer & Building Typology Selector */}
-        <Hero
-          onOpenQuote={() => handleOpenPropertyInquiry()}
-          onExploreProperties={scrollToRealEstate}
-        />
-
-        {/* 3. NEW: Premier Real Estate Properties Showcase (22 Mazoria & Haile Garment + Integrated MoWUD-1 Credentials) */}
-        <RealEstateSection
-          onSelectProperty={(prop) => setSelectedProperty(prop)}
-          onOpenInquiry={handleOpenPropertyInquiry}
-        />
-
-        {/* 4. Core Disciplines / Turnkey General Contracting, Luxury Real Estate & Engineering */}
-        <CoreDisciplinesSection
-          onSelectDiscipline={handleOpenQuoteWithService}
-        />
-
-        {/* 5. Split Feature Banner: "Don't Wait For anything. Build it right today!" */}
-        <SplitFeatureBanner
-          onOpenQuote={() => handleOpenPropertyInquiry()}
-          onOpenEstimator={scrollToRealEstate}
-        />
-
-        {/* 6. Recent Projects Grid: 6-Card Bento Layout with 22 & Haile Garment Landmarks */}
-        <RecentProjectsGrid
-          onSelectProject={(proj) => setSelectedProject(proj)}
-          onOpenQuote={() => handleOpenPropertyInquiry()}
-        />
-
-        {/* 7. Stats Counter Band: 850+ Homes Delivered, ETB 6.2B Capital, 1200+ Engineers, 02 Active Sites */}
-        <StatsCounterBand />
-
-        {/* 8. Latest News & Market Insights */}
-        <LatestNewsSection
-          onSelectArticle={(art) => setSelectedArticle(art)}
-        />
-
-        {/* 9. Dual Locations Section: Compact Sleek 22 Mazoria & Haile Garment Hubs */}
-        <LocationSection
-          onOpenQuote={() => handleOpenPropertyInquiry()}
-        />
+        {renderCurrentPage()}
       </main>
 
-      {/* 11. Luxury Footer (22 Mazoria HQ + Haile Garment Site Operations) */}
+      {/* 2. Luxury Footer */}
       <Footer
+        onOpenQuote={() => handleOpenPropertyInquiry()}
+        onOpenBrochure={() => setBrochureModalOpen(true)}
+      />
+
+      {/* Always Visible Floating Action Hub (WhatsApp + Direct Call + Quick Tour) */}
+      <FloatingActionHub
         onOpenQuote={() => handleOpenPropertyInquiry()}
       />
 
@@ -109,6 +151,12 @@ export default function App() {
         onClose={() => setQuoteModalOpen(false)}
         initialService={prefilledService}
         initialTypology={prefilledTypology}
+      />
+
+      {/* Interactive Modal: Download 2026 Company Portfolio & Price Guide PDF */}
+      <DownloadBrochureModal
+        isOpen={brochureModalOpen}
+        onClose={() => setBrochureModalOpen(false)}
       />
 
       {/* Interactive Modal: Real Estate Property Dossier Detail */}
@@ -138,5 +186,13 @@ export default function App() {
         }}
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <RouterProvider>
+      <AppContent />
+    </RouterProvider>
   );
 }

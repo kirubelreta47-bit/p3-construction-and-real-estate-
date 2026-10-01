@@ -2,60 +2,49 @@ import React, { useState, useEffect } from 'react';
 import { 
   Menu, 
   X, 
-  Building2, 
-  ShieldCheck,
-  Phone,
-  Sparkles,
-  MapPin
+  FileCheck2,
+  ChevronDown,
+  Calculator,
+  Building2,
+  HardHat,
+  Compass
 } from 'lucide-react';
-import { COMPANY_INFO } from '../data';
+import { useRouter, Link } from '../router';
 
 interface HeaderProps {
   onOpenQuote: () => void;
+  onOpenBrochure?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenQuote }) => {
+export const Header: React.FC<HeaderProps> = ({ onOpenQuote, onOpenBrochure }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const { pathname, navigate } = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight > 0) {
-        const currentProgress = (window.scrollY / totalHeight) * 100;
-        setScrollProgress(currentProgress);
-      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
+  const handleNavClick = (path: string) => {
     setMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    setServicesDropdownOpen(false);
+    navigate(path);
   };
 
   return (
     <header className="sticky top-0 w-full z-50 bg-[#0a0b0e] text-white border-b border-white/10 shadow-2xl">
-      {/* Golden Scroll Progress Bar */}
-      <div 
-        className="h-1 bg-gradient-to-r from-[#e6ca65] via-[#d4af37] to-[#b8932b] transition-all duration-100 ease-out origin-left"
-        style={{ width: `${scrollProgress}%` }}
-      />
-
       {/* Main Navigation Bar */}
-      <div className={`transition-all duration-300 ${scrolled ? 'bg-[#0a0b0e]/95 backdrop-blur-md shadow-2xl py-3' : 'bg-[#0a0b0e] py-4'}`}>
+      <div className={`transition-all duration-300 ${scrolled ? 'bg-[#0a0b0e]/95 backdrop-blur-md shadow-2xl py-3' : 'bg-[#0a0b0e] py-3.5'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">
           
-          {/* Brand Logo (P3 Construction Group & Real Estate in Luxury Gold & Dark) */}
-          <button 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          {/* Brand Logo (P3 Construction Group & Real Estate) */}
+          <Link 
+            href="/"
             className="flex items-center gap-3 text-left group cursor-pointer"
           >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#e6ca65] via-[#d4af37] to-[#b8932b] text-[#0a0b0e] flex items-center justify-center shadow-lg shadow-[#d4af37]/20 group-hover:scale-105 transition-transform font-black text-xl font-sans tracking-tight">
@@ -71,60 +60,137 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuote }) => {
                   Real Estate
                 </span>
               </div>
-              <span className="block text-[9px] uppercase font-mono tracking-widest text-white/60 -mt-0.5">
-                22 Mazoria • Haile Garment • Class-1 GC
-              </span>
             </div>
-          </button>
+          </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7 text-xs font-bold uppercase tracking-wider text-white/80">
-            <button 
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="hover:text-[#d4af37] transition-colors text-white cursor-pointer font-black"
+          <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-white/80">
+            <Link 
+              href="/"
+              className={`transition-colors cursor-pointer ${pathname === '/' ? 'text-[#d4af37] font-black' : 'text-white/80 hover:text-[#d4af37]'}`}
             >
               Home
-            </button>
-            <button 
-              onClick={() => scrollToSection('real-estate-section')}
-              className="hover:text-[#d4af37] transition-colors text-[#e6ca65] cursor-pointer flex items-center gap-1"
+            </Link>
+
+            {/* Services Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setServicesDropdownOpen(true)}
+              onMouseLeave={() => setServicesDropdownOpen(false)}
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
-              <span>Real Estate</span>
-            </button>
-            <button 
-              onClick={() => scrollToSection('services-section')}
-              className="hover:text-[#d4af37] transition-colors cursor-pointer"
+              <Link
+                href="/services"
+                className={`inline-flex items-center gap-1 transition-colors cursor-pointer ${pathname.startsWith('/services') ? 'text-[#d4af37] font-black' : 'text-white/80 hover:text-[#d4af37]'}`}
+              >
+                <span>Services</span>
+                <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" />
+              </Link>
+
+              {servicesDropdownOpen && (
+                <div className="absolute top-full left-0 pt-2 w-72 z-50">
+                  <div className="bg-[#12151b] border border-white/10 rounded-2xl p-2 shadow-2xl backdrop-blur-xl">
+                    <Link
+                      href="/services"
+                      onClick={() => setServicesDropdownOpen(false)}
+                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors text-gray-200 hover:text-amber-400"
+                    >
+                      <HardHat className="w-4 h-4 text-amber-400 shrink-0" />
+                      <div>
+                        <div className="text-xs font-bold uppercase">All Services Overview</div>
+                        <div className="text-[10px] text-gray-400 normal-case font-normal">Class-1 GC & Engineering Hub</div>
+                      </div>
+                    </Link>
+
+                    <Link
+                      href="/services/cost-estimation"
+                      onClick={() => setServicesDropdownOpen(false)}
+                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors text-gray-200 hover:text-amber-400"
+                    >
+                      <Calculator className="w-4 h-4 text-amber-400 shrink-0" />
+                      <div>
+                        <div className="text-xs font-bold uppercase">Cost Estimation & BOQ</div>
+                        <div className="text-[10px] text-gray-400 normal-case font-normal">Addis Ababa m² rates & takeoff</div>
+                      </div>
+                    </Link>
+
+                    <Link
+                      href="/services/structural-engineering"
+                      onClick={() => setServicesDropdownOpen(false)}
+                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors text-gray-200 hover:text-amber-400"
+                    >
+                      <Building2 className="w-4 h-4 text-amber-400 shrink-0" />
+                      <div>
+                        <div className="text-xs font-bold uppercase">Structural Engineering</div>
+                        <div className="text-[10px] text-gray-400 normal-case font-normal">EBCS-8 seismic & ETABS design</div>
+                      </div>
+                    </Link>
+
+                    <Link
+                      href="/services/turnkey-construction"
+                      onClick={() => setServicesDropdownOpen(false)}
+                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors text-gray-200 hover:text-amber-400"
+                    >
+                      <HardHat className="w-4 h-4 text-amber-400 shrink-0" />
+                      <div>
+                        <div className="text-xs font-bold uppercase">Turnkey Construction</div>
+                        <div className="text-[10px] text-gray-400 normal-case font-normal">Class-1 GC #GC-01/ET/9824</div>
+                      </div>
+                    </Link>
+
+                    <Link
+                      href="/services/geotechnical-investigation"
+                      onClick={() => setServicesDropdownOpen(false)}
+                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors text-gray-200 hover:text-amber-400"
+                    >
+                      <Compass className="w-4 h-4 text-amber-400 shrink-0" />
+                      <div>
+                        <div className="text-xs font-bold uppercase">Geotechnical & Soils</div>
+                        <div className="text-[10px] text-gray-400 normal-case font-normal">SPT tests & core drilling</div>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <Link 
+              href="/properties"
+              className={`transition-colors cursor-pointer ${pathname === '/properties' ? 'text-[#d4af37] font-black' : 'text-[#e6ca65] hover:text-[#d4af37]'}`}
             >
-              Engineering
-            </button>
-            <button 
-              onClick={() => scrollToSection('projects-section')}
-              className="hover:text-[#d4af37] transition-colors cursor-pointer"
+              Real Estate
+            </Link>
+
+            <Link 
+              href="/projects"
+              className={`transition-colors cursor-pointer ${pathname === '/projects' ? 'text-[#d4af37] font-black' : 'text-white/80 hover:text-[#d4af37]'}`}
             >
               Projects
-            </button>
-            <button 
-              onClick={() => scrollToSection('location-section')}
-              className="hover:text-[#d4af37] transition-colors cursor-pointer flex items-center gap-1"
+            </Link>
+
+            <Link 
+              href="/contact"
+              className={`transition-colors cursor-pointer ${pathname === '/contact' ? 'text-[#d4af37] font-black' : 'text-white/80 hover:text-[#d4af37]'}`}
             >
-              <MapPin className="w-3.5 h-3.5 text-[#d4af37]" />
-              <span>Locations</span>
-            </button>
-            <button 
-              onClick={() => scrollToSection('news-section')}
-              className="hover:text-[#d4af37] transition-colors cursor-pointer"
-            >
-              News
-            </button>
+              Contact
+            </Link>
           </nav>
 
-          {/* Right Action Button ("Inquire / Get Quote") */}
-          <div className="flex items-center gap-3">
+          {/* Right Action Buttons ("Brochure" + "Inquire / Quote") */}
+          <div className="flex items-center gap-2.5">
+            {onOpenBrochure && (
+              <button
+                onClick={onOpenBrochure}
+                className="hidden xl:inline-flex items-center gap-1.5 px-3.5 py-2 bg-white/5 hover:bg-white/10 text-white/90 hover:text-white border border-white/10 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+              >
+                <FileCheck2 className="w-3.5 h-3.5 text-[#d4af37]" />
+                <span>Brochure</span>
+              </button>
+            )}
+
             <button
               id="header-get-quote-btn"
               onClick={onOpenQuote}
-              className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 bg-gradient-to-r from-[#e6ca65] via-[#d4af37] to-[#b8932b] hover:from-[#d4af37] hover:to-[#a68221] text-[#0a0b0e] font-black text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-[#d4af37]/20 transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer font-sans"
+              className="hidden sm:inline-flex items-center justify-center px-4 sm:px-5 py-2.5 bg-gradient-to-r from-[#e6ca65] via-[#d4af37] to-[#b8932b] hover:from-[#d4af37] hover:to-[#a68221] text-[#0a0b0e] font-black text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-[#d4af37]/20 transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer font-sans"
             >
               Inquire / Quote
             </button>
@@ -144,54 +210,89 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuote }) => {
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#12151b] border-t border-white/10 px-6 py-5 shadow-2xl space-y-4 animate-fadeIn">
-          <nav className="flex flex-col space-y-3 text-sm font-medium text-white/90">
+        <div className="lg:hidden bg-[#12151b] border-t border-white/10 px-6 py-5 shadow-2xl space-y-4">
+          <nav aria-label="Mobile Navigation" className="flex flex-col space-y-2 text-sm font-medium text-white/90">
             <button 
-              onClick={() => scrollToSection('top')}
-              className="text-left py-2 border-b border-white/5 hover:text-[#d4af37] font-bold"
+              onClick={() => handleNavClick('/')}
+              className={`text-left py-2 border-b border-white/5 hover:text-[#d4af37] ${pathname === '/' ? 'text-[#d4af37] font-bold' : ''}`}
             >
               Home
             </button>
+
             <button 
-              onClick={() => scrollToSection('real-estate-section')}
-              className="text-left py-2 border-b border-white/5 text-[#e6ca65] font-bold flex items-center justify-between"
+              onClick={() => handleNavClick('/properties')}
+              className={`text-left py-2 border-b border-white/5 hover:text-[#d4af37] ${pathname === '/properties' ? 'text-[#d4af37] font-bold' : 'text-[#e6ca65]'}`}
             >
-              <span>Prime Real Estate Developments</span>
-              <Sparkles className="w-4 h-4 text-[#d4af37]" />
+              Apartments & Real Estate
             </button>
+
             <button 
-              onClick={() => scrollToSection('services-section')}
-              className="text-left py-2 border-b border-white/5 hover:text-[#d4af37]"
+              onClick={() => handleNavClick('/services')}
+              className={`text-left py-2 border-b border-white/5 hover:text-[#d4af37] ${pathname === '/services' ? 'text-[#d4af37] font-bold' : ''}`}
             >
-              Construction & Engineering
+              All Engineering Services
             </button>
+
+            <div className="pl-3 py-1 space-y-1.5 border-b border-white/5 text-xs text-gray-300">
+              <button 
+                onClick={() => handleNavClick('/services/cost-estimation')}
+                className="block py-1 hover:text-amber-400 text-left w-full"
+              >
+                • Cost Estimation & BOQ (Addis Ababa)
+              </button>
+              <button 
+                onClick={() => handleNavClick('/services/structural-engineering')}
+                className="block py-1 hover:text-amber-400 text-left w-full"
+              >
+                • Structural Engineering (EBCS-8)
+              </button>
+              <button 
+                onClick={() => handleNavClick('/services/turnkey-construction')}
+                className="block py-1 hover:text-amber-400 text-left w-full"
+              >
+                • Turnkey Construction (Class-1 GC)
+              </button>
+              <button 
+                onClick={() => handleNavClick('/services/geotechnical-investigation')}
+                className="block py-1 hover:text-amber-400 text-left w-full"
+              >
+                • Geotechnical Investigation
+              </button>
+            </div>
+
             <button 
-              onClick={() => scrollToSection('projects-section')}
-              className="text-left py-2 border-b border-white/5 hover:text-[#d4af37]"
+              onClick={() => handleNavClick('/projects')}
+              className={`text-left py-2 border-b border-white/5 hover:text-[#d4af37] ${pathname === '/projects' ? 'text-[#d4af37] font-bold' : ''}`}
             >
-              Completed & Active Projects
+              Projects Portfolio
             </button>
+
             <button 
-              onClick={() => scrollToSection('location-section')}
-              className="text-left py-2 border-b border-white/5 hover:text-[#d4af37] flex items-center justify-between"
+              onClick={() => handleNavClick('/contact')}
+              className={`text-left py-2 border-b border-white/5 hover:text-[#d4af37] ${pathname === '/contact' ? 'text-[#d4af37] font-bold' : ''}`}
             >
-              <span>Our Locations</span>
-              <MapPin className="w-4 h-4 text-[#d4af37]" />
-            </button>
-            <button 
-              onClick={() => scrollToSection('news-section')}
-              className="text-left py-2 border-b border-white/5 hover:text-[#d4af37]"
-            >
-              News & Market Insights
+              Contact Dual Offices (22 & Haile Garment)
             </button>
           </nav>
 
-          <button
-            onClick={() => { setMobileMenuOpen(false); onOpenQuote(); }}
-            className="w-full py-3 bg-gradient-to-r from-[#e6ca65] via-[#d4af37] to-[#b8932b] text-[#0a0b0e] font-black text-xs uppercase tracking-wider rounded-xl text-center shadow-lg shadow-[#d4af37]/20"
-          >
-            Inquire / Request Consultation
-          </button>
+          <div className="pt-2 space-y-2">
+            {onOpenBrochure && (
+              <button
+                onClick={() => { setMobileMenuOpen(false); onOpenBrochure(); }}
+                className="w-full py-2.5 bg-white/5 border border-white/10 text-white font-bold text-xs uppercase tracking-wider rounded-xl text-center flex items-center justify-center gap-1.5"
+              >
+                <FileCheck2 className="w-3.5 h-3.5 text-[#d4af37]" />
+                <span>Download 2026 Portfolio PDF</span>
+              </button>
+            )}
+
+            <button
+              onClick={() => { setMobileMenuOpen(false); onOpenQuote(); }}
+              className="w-full py-3 bg-gradient-to-r from-[#e6ca65] via-[#d4af37] to-[#b8932b] text-[#0a0b0e] font-black text-xs uppercase tracking-wider rounded-xl text-center shadow-lg shadow-[#d4af37]/20"
+            >
+              Inquire / Request Consultation
+            </button>
+          </div>
         </div>
       )}
     </header>

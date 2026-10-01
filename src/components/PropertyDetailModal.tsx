@@ -61,7 +61,10 @@ export const PropertyDetailModal: React.FC<PropertyDetailModalProps> = ({
               <div className="relative h-72 sm:h-96 rounded-2xl overflow-hidden bg-black border border-white/10">
                 <img
                   src={images[activeImageIndex] || property.image}
-                  alt={property.title}
+                  alt={`${property.title} - Architectural View in ${property.siteZone}, Addis Ababa`}
+                  width="800"
+                  height="500"
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
                 
@@ -100,7 +103,14 @@ export const PropertyDetailModal: React.FC<PropertyDetailModalProps> = ({
                         activeImageIndex === idx ? 'border-[#d4af37] scale-105' : 'border-white/10 opacity-60 hover:opacity-100'
                       }`}
                     >
-                      <img src={img} alt="Thumbnail" className="w-full h-full object-cover" />
+                      <img
+                        src={img}
+                        alt={`${property.title} gallery thumbnail ${idx + 1}`}
+                        width="80"
+                        height="64"
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                      />
                     </button>
                   ))}
                 </div>

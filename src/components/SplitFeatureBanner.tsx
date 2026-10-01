@@ -43,6 +43,9 @@ export const SplitFeatureBanner: React.FC<SplitFeatureBannerProps> = ({
               <img 
                 src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200&auto=format&fit=crop"
                 alt="P3 Construction Group Lead Structural Engineer on Site in Addis Ababa" 
+                width="1200"
+                height="825"
+                loading="lazy"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
               

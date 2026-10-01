@@ -129,10 +129,10 @@ export const RealEstateSection: React.FC<RealEstateSectionProps> = ({
           </div>
         </div>
 
-        {/* Properties Grid */}
+        {/* Properties Grid (Swipe horizontally on mobile, Grid on tablet/desktop) */}
         <motion.div 
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="flex overflow-x-auto snap-x snap-mandatory pb-6 pt-2 gap-5 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-8"
         >
           <AnimatePresence>
             {filteredProperties.map((prop, idx) => {
@@ -148,13 +148,16 @@ export const RealEstateSection: React.FC<RealEstateSectionProps> = ({
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.35, delay: idx * 0.05 }}
                   whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                  className="group relative bg-[#12151b] rounded-2xl overflow-hidden border border-white/10 hover:border-[#d4af37]/60 shadow-lg hover:shadow-xl hover:shadow-[#d4af37]/10 transition-all duration-300 flex flex-col justify-between"
+                  className="group relative bg-[#12151b] rounded-2xl overflow-hidden border border-white/10 hover:border-[#d4af37]/60 shadow-lg hover:shadow-xl hover:shadow-[#d4af37]/10 transition-all duration-300 flex flex-col justify-between snap-center shrink-0 w-[84vw] max-w-[340px] sm:w-auto sm:max-w-none"
                 >
                 {/* Top Image & Floating Badges */}
                 <div className="relative h-44 sm:h-48 overflow-hidden bg-black">
                   <img
                     src={prop.image}
-                    alt={prop.title}
+                    alt={`${prop.title} - Luxury Apartment in ${prop.location}, Addis Ababa`}
+                    width="600"
+                    height="400"
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#12151b] via-transparent to-black/60" />

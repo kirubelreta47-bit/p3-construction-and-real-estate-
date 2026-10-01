@@ -1,4 +1,17 @@
-import { ServiceItem, ProcessPhase, StatMetric, ManifestoPillar, RealEstateProperty, ProjectItem, NewsArticle } from './types';
+import { 
+  ServiceItem, 
+  ProcessPhase, 
+  StatMetric, 
+  ManifestoPillar, 
+  RealEstateProperty, 
+  ProjectItem, 
+  NewsArticle,
+  FAQItem,
+  TeamMember,
+  TestimonialItem
+} from './types';
+
+import { BUSINESS_CONFIG } from './config/business';
 
 export interface CoreDiscipline {
   id: string;
@@ -10,37 +23,24 @@ export interface CoreDiscipline {
 }
 
 export const COMPANY_INFO = {
-  name: 'P3 Construction Group & Real Estate',
-  shortName: 'P3 Construction & Real Estate',
-  tagline: 'Premier Construction Engineering & Luxury Real Estate Developers in Addis Ababa',
-  mowudLicense: 'MoWUD Class-1 General Contractor & Developer #GC-01/ET/9824',
-  phone1: '+251 11 661 4455',
-  phone2: '+251 91 123 7890',
-  email: 'info.p3construction@gmail.com',
-  sites: [
-    {
-      id: 'site-22',
-      name: '22 Mazoria Executive & Sales Headquarters',
-      area: '22 Mazoria (Haya Hulet)',
-      address: 'P3 Plaza, 4th Floor, 22 Mazoria (Beside Gollagul Tower), Addis Ababa',
-      focus: 'Real Estate Sales, Architectural Consultations & Executive Management',
-      hours: 'Mon – Fri: 8:00 AM – 6:30 PM | Sat: 8:30 AM – 4:00 PM',
-      mapUrl: 'https://maps.google.com/?q=22+Mazoria+Addis+Ababa+Ethiopia',
-      embedUrl: 'https://maps.google.com/maps?q=9.0142,38.7845&hl=en&z=15&output=embed',
-      phone: '+251 11 661 4455'
-    },
-    {
-      id: 'site-haile-garment',
-      name: 'Haile Garment Site, Precast & Operations Yard',
-      area: 'Haile Garment Corridor',
-      address: 'Haile Garment - CDC, WPQM+8H2, Addis Ababa, Ethiopia',
-      focus: 'Precast Engineering, Heavy Plant Equipment, Material Testing & Field Operations',
-      hours: 'Mon – Sat: 7:30 AM – 6:00 PM (Site Operations)',
-      mapUrl: 'https://www.google.com/maps/dir/9.0016017,38.8100846/Haile+Garment+-+CDC,+WPQM%2B8H2,+Addis+Ababa/@8.9667587,38.7300237,13z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x164b817d4823f5a1:0x258c702776808447!2m2!1d38.7355523!2d8.9377004',
-      embedUrl: 'https://maps.google.com/maps?q=8.9377004,38.7355523&hl=en&z=15&output=embed',
-      phone: '+251 91 123 7890'
-    }
-  ]
+  name: BUSINESS_CONFIG.legalName,
+  shortName: BUSINESS_CONFIG.shortName,
+  tagline: BUSINESS_CONFIG.tagline,
+  mowudLicense: BUSINESS_CONFIG.licenseTitle,
+  phone1: BUSINESS_CONFIG.primaryPhone,
+  phone2: BUSINESS_CONFIG.secondaryPhone,
+  email: BUSINESS_CONFIG.email,
+  sites: BUSINESS_CONFIG.offices.map(office => ({
+    id: office.id,
+    name: office.name,
+    area: office.area,
+    address: `${office.streetAddress}, ${office.locality}`,
+    focus: office.focus,
+    hours: office.hours,
+    mapUrl: office.mapUrl || '',
+    embedUrl: office.embedUrl || '',
+    phone: office.phone
+  }))
 };
 
 export const ADDIS_SUBCITIES = [
@@ -352,16 +352,207 @@ export const SERVICES_DATA: ServiceItem[] = [
   }
 ];
 
-export const PROCESS_PHASES: ProcessPhase[] = [];
+export const PROCESS_PHASES: ProcessPhase[] = [
+  {
+    phaseNum: '01',
+    code: 'FEASIBILITY-SOIL',
+    name: 'Consultation & Geotechnical Core Drilling',
+    subtitle: 'Site investigation, basalt rock depth mapping & seismic risk auditing',
+    timeframe: 'Weeks 1 – 3',
+    objective: 'Establish definitive soil bearing capacity, groundwater tables, and structural foundation feasibility in 22 Mazoria or Haile Garment.',
+    gateChecks: [
+      { item: 'Borehole Core Sampling', requirement: 'Standard Penetration Test (SPT) down to bedrock depth', criticality: 'CRITICAL' },
+      { item: 'Topographic Boundary Survey', requirement: 'Addis Ababa Cadastral Masterplan alignment', criticality: 'MANDATORY' },
+      { item: 'Investment Feasibility', requirement: 'Financial milestone ROI & unit yield analysis', criticality: 'HIGH' }
+    ],
+    keyDeliverables: ['Geotechnical Soil Investigation Report', 'Foundation Type Recommendations (Raft vs. Deep Piles)', 'Preliminary Feasibility Dossier'],
+    signOffRole: 'Senior Geotechnical Engineer & Client'
+  },
+  {
+    phaseNum: '02',
+    code: 'ARCH-BIM-SEISMIC',
+    name: 'Architectural Design & 3D BIM Structural Modeling',
+    subtitle: 'Full 3D modeling, ETABS finite element calculation, and EBCS-8 compliance',
+    timeframe: 'Weeks 4 – 8',
+    objective: 'Transform client vision into high-efficiency architectural layouts and earthquake-resilient reinforced concrete dual frames.',
+    gateChecks: [
+      { item: 'Structural Finite Element Modeling', requirement: 'ETABS & SAFE stress and wind deflection checks', criticality: 'CRITICAL' },
+      { item: '3D BIM Clash Detection', requirement: 'Zero conflicts between MEP pipes, elevators & beams', criticality: 'HIGH' },
+      { item: 'Daylight & Ventilation Efficiency', requirement: 'Optimization of Addis Ababa natural light and thermal comfort', criticality: 'HIGH' }
+    ],
+    keyDeliverables: ['Complete Architectural Working Drawings', 'Certified Structural Calculation Book', '3D Photorealistic Renderings & VR Tour'],
+    signOffRole: 'Lead Architect & Chief Structural Engineer (PE)'
+  },
+  {
+    phaseNum: '03',
+    code: 'PERMIT-CADASTRE',
+    name: 'Municipal Permitting & Regulatory Approvals',
+    subtitle: 'City building permit acquisition, utility right-of-way, and masterplan clearance',
+    timeframe: 'Weeks 8 – 12',
+    objective: 'Secure 100% legal building permits from Addis Ababa Construction & Building Permit Bureau with zero regulatory ambiguities.',
+    gateChecks: [
+      { item: 'MoWUD Class-1 Compliance Verification', requirement: 'Authorized engineering registration stamp', criticality: 'MANDATORY' },
+      { item: 'Environmental & Fire Safety Sign-off', requirement: 'Addis Fire & Emergency Prevention Agency clearance', criticality: 'HIGH' },
+      { item: 'EEU & AAWSA Utility Allocation', requirement: 'Dedicated 3-phase grid transformer & water main connections', criticality: 'MANDATORY' }
+    ],
+    keyDeliverables: ['Official Addis Ababa Municipal Building Permit', 'Approved Architectural & Structural Stamped Blueprints', 'Legal Site Hoarding & Demolition Clearances'],
+    signOffRole: 'Municipal Building Authority Officer'
+  },
+  {
+    phaseNum: '04',
+    code: 'BUILD-QAQC',
+    name: 'Class-1 Precision Construction & Material Batching',
+    subtitle: 'C35/45 concrete testing, high-yield rebar, and laser-guided superstructure execution',
+    timeframe: 'Milestone Phased',
+    objective: 'Execute high-rise construction with zero structural defects, continuous slump tests, and strict FIDIC contract supervision.',
+    gateChecks: [
+      { item: '7-Day & 28-Day Crushing Tests', requirement: 'C35/45 ready-mix compressive strength compliance', criticality: 'CRITICAL' },
+      { item: 'Apex B500B Rebar Tensile Check', requirement: 'Tensile yield strength certificate per steel consignment', criticality: 'CRITICAL' },
+      { item: 'Independent Third-Party Audit', requirement: 'Weekly site progress logs & photographic milestone audits', criticality: 'HIGH' }
+    ],
+    keyDeliverables: ['Foundation Pour Quality Clearance', 'Floor-by-Floor Slab Handover Records', 'MEP Pressure Test Certificates'],
+    signOffRole: 'Resident QA/QC Materials Engineer'
+  },
+  {
+    phaseNum: '05',
+    code: 'HANDOVER-TITLE',
+    name: 'Milestone Handover & Guaranteed Title Deed Transfer',
+    subtitle: 'Final snagging audit, Occupancy Certificate clearance, and individual Yekartab Bet issuance',
+    timeframe: 'Final Phase',
+    objective: 'Deliver flawless turn-key keys with certified municipal occupancy authorization and registered legal title deed ownership.',
+    gateChecks: [
+      { item: 'Comprehensive Snagging Audit', requirement: '100% resolution of interior fixtures, glazing & electrical outlets', criticality: 'HIGH' },
+      { item: 'Addis Ababa Occupancy Certificate', requirement: 'Official Municipal authorization for commercial/residential occupancy', criticality: 'MANDATORY' },
+      { item: 'Individual Title Deed Issuance', requirement: 'Yekartab Bet transferred directly into buyer’s legal name', criticality: 'CRITICAL' }
+    ],
+    keyDeliverables: ['Individual Registered Title Deed (የካርታ ቤት)', '10-Year Decennial Structural Warranty Certificate', 'Turnkey Key Handover & Resident Welcome Pack'],
+    signOffRole: 'P3 Executive Managing Director & Municipal Land Registrar'
+  }
+];
+
 export const MANIFESTO_PILLARS: ManifestoPillar[] = [];
 
 export const PARTNER_LOGOS = [
-  { id: 'p-1', name: 'MOWUD', category: 'Class-1 GC Licensing' },
-  { id: 'p-2', name: 'SCHINDLER', category: 'Elevator Systems' },
-  { id: 'p-3', name: 'APEX REBAR', category: 'High-Yield B500B Steel' },
-  { id: 'p-4', name: 'READYMIX ET', category: 'C35/45 Concrete' },
-  { id: 'p-5', name: 'SAINT GOBAIN', category: 'Acoustic Insulation' },
-  { id: 'p-6', name: 'CBE ESCROW', category: 'Guaranteed Title Deeds' }
+  { id: 'p-1', name: 'MOWUD', category: 'Class-1 GC Licensing (#GC-01/ET/9824)' },
+  { id: 'p-2', name: 'COMMERCIAL BANK OF ETHIOPIA', category: 'Escrow & Diaspora Account Partner' },
+  { id: 'p-3', name: 'AWASH BANK', category: 'Mortgage & Home Financing Facility' },
+  { id: 'p-4', name: 'SCHINDLER', category: 'High-Speed Precision Elevator Systems' },
+  { id: 'p-5', name: 'APEX REBAR', category: 'High-Yield B500B Seismic Steel' },
+  { id: 'p-6', name: 'READYMIX ETHIOPIA', category: 'Batch-Certified C35/45 Concrete' }
+];
+
+export const TESTIMONIALS_DATA: TestimonialItem[] = [
+  {
+    id: 'test-1',
+    name: 'Dawit Gebre-Mariam',
+    role: 'Diaspora Real Estate Investor',
+    company: 'Washington D.C. / Addis Ababa',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+    quote: 'Purchasing an off-plan apartment at P3 Sky Tower in 22 Mazoria while residing in the US was completely transparent. The milestone escrow account protected every dollar, and their team sent drone updates of every concrete pour. The individual title deed was transferred exactly as promised.',
+    rating: 5
+  },
+  {
+    id: 'test-2',
+    name: 'Bethlehem Tadesse',
+    role: 'Commercial Managing Director',
+    company: 'Nexus Logistics & Trade Ethiopia',
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
+    quote: 'We commissioned P3 for turnkey contracting on our commercial premises in 22. Their structural rigor, deep piling into volcanic rock, and flawless finishing delivered 3 months ahead of schedule. Truly a Class-1 contractor you can stake your balance sheet on.',
+    rating: 5
+  },
+  {
+    id: 'test-3',
+    name: 'Eng. Michael Kebede',
+    role: 'Senior Infrastructure Consultant & Homeowner',
+    company: 'Resident at P3 Heights (Haile Garment)',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+    quote: 'Being a civil engineer myself, I personally inspected the concrete cylinder crushing tests and seismic beam ties at Haile Garment. P3 refuses to cut corners. The backup water borehole and dedicated transformer make this the most resilient residential complex in the corridor.',
+    rating: 5
+  }
+];
+
+export const TEAM_MEMBERS: TeamMember[] = [
+  {
+    id: 'team-1',
+    name: 'Eng. Yonas Hailu, PE',
+    role: 'Chief Resident Structural Engineer',
+    credential: 'MSc Structural Dynamics & Earthquake Engineering, AAU',
+    experience: '18+ Years Experience',
+    specialty: 'High-rise dual frames, post-tensioned slabs, EBCS-8 seismic standards',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'
+  },
+  {
+    id: 'team-2',
+    name: 'Arch. Rahel Demissie',
+    role: 'Principal Architectural Director',
+    credential: 'BArch Architecture & Urban Planning, EIABC',
+    experience: '15+ Years Experience',
+    specialty: 'Luxury residential typology, biophilic ventilation, 3D BIM integration',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80'
+  },
+  {
+    id: 'team-3',
+    name: 'Eng. Solomon Bekele',
+    role: 'Director of QA/QC & Geotechnical Systems',
+    credential: 'BSc Civil & Geotechnical Engineering',
+    experience: '16+ Years Experience',
+    specialty: 'Foundation core drilling, C35/45 concrete crushing tests, FIDIC audits',
+    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80'
+  },
+  {
+    id: 'team-4',
+    name: 'Selamawit Assefa, Esq.',
+    role: 'Head of Real Estate Escrow & Diaspora Advisory',
+    credential: 'LL.B Commercial Real Estate Law & Land Administration',
+    experience: '12+ Years Experience',
+    specialty: 'Title deed (የካርታ ቤት) conveyancing, bank escrow compliance, remote PoA',
+    image: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=400&q=80'
+  }
+];
+
+export const FAQ_DATA: FAQItem[] = [
+  {
+    id: 'faq-title-deed',
+    category: 'LEGAL & TITLE',
+    question: 'How does P3 Construction guarantee legal title deed (Yekartab Bet / የካርታ ቤት) ownership?',
+    questionAmharic: 'የካርታ ቤት ህጋዊ ባለቤትነት እንዴት ዋስትና ይሰጣል?',
+    answer: 'Every property developed by P3 comes with an irrevocable legal guarantee of individual Title Deed (Yekartab Bet) ownership. Our projects possess verified Addis Ababa municipal land lease documentation and approved masterplans. Upon completion, the title deed is officially transferred and registered in your name directly through the Addis Ababa Land Administration Bureau.'
+  },
+  {
+    id: 'faq-milestone-payment',
+    category: 'PAYMENT & ESCROW',
+    question: 'What are the payment milestones and bank escrow protections?',
+    questionAmharic: 'የክፍያ ደረጃዎች እና የባንክ ዋስትና ምን ይመስላሉ?',
+    answer: 'We provide structured milestone-based payment plans: 15% upon reservation/contract signing, followed by phased progress installments tied strictly to verified physical benchmarks (Foundation, Ground Floor, Mid-Rise Superstructure, Rough MEP, Finishing), and the final 10% held until key handover and title deed transfer. All transactions can be routed via bank escrow partnerships with Commercial Bank of Ethiopia (CBE) and Awash Bank.'
+  },
+  {
+    id: 'faq-mowud-grade1',
+    category: 'CONSTRUCTION',
+    question: 'What does P3’s MoWUD Class-1 General Contractor license represent?',
+    questionAmharic: 'የደረጃ 1 ጠቅላይ ስራ ተቋራጭ ፈቃድ ምን ያረጋግጣል?',
+    answer: 'Class-1 (GC-1 #GC-01/ET/9824) is the highest operational classification awarded by the Ethiopian Ministry of Urban Development and Construction (MoWUD). It certifies that P3 maintains in-house heavy construction machinery, certified resident structural engineers, state-of-the-art testing equipment, and unlimited financial bonding capacity to execute high-rises exceeding 20+ stories.'
+  },
+  {
+    id: 'faq-diaspora-buyers',
+    category: 'DIASPORA',
+    question: 'Can Ethiopian diaspora or overseas buyers purchase property remotely?',
+    questionAmharic: 'ዲያስፖራዎች ከውጭ ሀገር ሆነው ቤት መግዛት ይችላሉ?',
+    answer: 'Yes! Over 40% of our buyers are Ethiopian diaspora living in North America, Europe, and the Middle East. P3 provides a dedicated Diaspora Liaison Office. We facilitate authenticated Power of Attorney (PoA) guidance through Ethiopian embassies, secure foreign currency wire accounts (USD, EUR, GBP), and provide bi-weekly high-definition drone video inspections of your unit’s construction progress.'
+  },
+  {
+    id: 'faq-handover-delays',
+    category: 'WARRANTY',
+    question: 'What are the project handover timelines and delay penalty guarantees?',
+    questionAmharic: 'የማስረከቢያ ጊዜ እና የማዘግየት ቅጣት ዋስትናዎች ምንድን ናቸው?',
+    answer: 'P3 sets clear contractual delivery deadlines: Q4 2026 for P3 Sky Tower (22 Mazoria) and Q2 2026 for P3 Heights (Haile Garment). Our contracts include contractual penalty clauses and liquid damages for unjustifiable contractor delays, ensuring we stay 100% accountable to your moving and investment timeline.'
+  },
+  {
+    id: 'faq-structural-warranty',
+    category: 'WARRANTY',
+    question: 'What structural warranty and post-handover maintenance does P3 provide?',
+    questionAmharic: 'የ10 ዓመት መዋቅራዊ ዋስትና እና የጥገና አገልግሎት ይሰጣል?',
+    answer: 'We provide a 10-Year Decennial Structural Warranty covering all load-bearing reinforced concrete elements, foundation stability, and core earthquake frames. Additionally, all MEP systems, Schindler elevators, and backup generators carry a comprehensive 12-month defect liability period with dedicated on-site property management.'
+  }
 ];
 
 export const NEWS_ARTICLES: NewsArticle[] = [

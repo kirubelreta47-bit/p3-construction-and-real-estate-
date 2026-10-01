@@ -93,10 +93,10 @@ export const RecentProjectsGrid: React.FC<RecentProjectsGridProps> = ({
           })}
         </motion.div>
 
-        {/* 6-Card Grid */}
+        {/* 6-Card Grid (Horizontal scroll on mobile, grid on desktop) */}
         <motion.div 
           layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="flex overflow-x-auto snap-x snap-mandatory pb-6 pt-2 gap-5 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6"
         >
           <AnimatePresence>
             {displayedProjects.map((project, idx) => (
@@ -110,13 +110,16 @@ export const RecentProjectsGrid: React.FC<RecentProjectsGridProps> = ({
                 transition={{ duration: 0.4, delay: (idx % 6) * 0.08 }}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
                 onClick={() => onSelectProject(project)}
-                className="group relative rounded-2xl overflow-hidden bg-[#12151b] border border-white/10 hover:border-[#d4af37]/60 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between"
+                className="group relative rounded-2xl overflow-hidden bg-[#12151b] border border-white/10 hover:border-[#d4af37]/60 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between snap-center shrink-0 w-[84vw] max-w-[340px] sm:w-auto sm:max-w-none"
               >
                 {/* Photo & Overlays */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
                   <img
                     src={project.image}
-                    alt={project.title}
+                    alt={`${project.title} - ${project.category} Project in ${project.location}, Addis Ababa`}
+                    width="600"
+                    height="450"
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   

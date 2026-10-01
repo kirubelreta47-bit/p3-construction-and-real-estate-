@@ -40,8 +40,8 @@ export const LatestNewsSection: React.FC<LatestNewsSectionProps> = ({ onSelectAr
           </p>
         </motion.div>
 
-        {/* 3 News Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        {/* 3 News Cards Grid (Horizontal scroll on mobile, grid on desktop) */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory pb-6 pt-2 gap-5 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 md:grid-cols-3 sm:gap-6 lg:gap-8">
           {NEWS_ARTICLES.map((article, idx) => (
             <motion.div
               key={article.id}
@@ -51,7 +51,7 @@ export const LatestNewsSection: React.FC<LatestNewsSectionProps> = ({ onSelectAr
               transition={{ duration: 0.5, delay: idx * 0.12 }}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
               onClick={() => onSelectArticle(article as NewsArticle)}
-              className="bg-[#0a0b0e] rounded-2xl p-7 shadow-xl hover:shadow-2xl border border-white/10 hover:border-[#d4af37]/60 transition-all duration-300 flex flex-col justify-between cursor-pointer group"
+              className="bg-[#0a0b0e] rounded-2xl p-7 shadow-xl hover:shadow-2xl border border-white/10 hover:border-[#d4af37]/60 transition-all duration-300 flex flex-col justify-between cursor-pointer group snap-center shrink-0 w-[84vw] max-w-[340px] sm:w-auto sm:max-w-none"
             >
               <div>
                 {/* Gold tag pill */}

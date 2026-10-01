@@ -32,7 +32,10 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
           <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-black">
             <img
               src={project.image}
-              alt={project.title}
+              alt={`${project.title} - ${project.category} Engineering Project in ${project.location}, Addis Ababa`}
+              width="800"
+              height="450"
+              loading="lazy"
               className="w-full h-full object-cover opacity-85"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#12151b] via-black/40 to-transparent" />

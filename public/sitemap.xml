@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <!-- Homepage -->
+  <url>
+    <loc>https://REPLACE-WITH-DOMAIN.com/</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Engineering Services Index -->
+  <url>
+    <loc>https://REPLACE-WITH-DOMAIN.com/services</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Service: Cost Estimation & BOQ (Addis Ababa) -->
+  <url>
+    <loc>https://REPLACE-WITH-DOMAIN.com/services/cost-estimation</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Service: Structural Engineering (EBCS-8 Seismic) -->
+  <url>
+    <loc>https://REPLACE-WITH-DOMAIN.com/services/structural-engineering</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Service: Turnkey Construction (Class-1 General Contractor) -->
+  <url>
+    <loc>https://REPLACE-WITH-DOMAIN.com/services/turnkey-construction</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Service: Geotechnical Investigation & Soil Core Drilling -->
+  <url>
+    <loc>https://REPLACE-WITH-DOMAIN.com/services/geotechnical-investigation</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Real Estate & Apartments For Sale -->
+  <url>
+    <loc>https://REPLACE-WITH-DOMAIN.com/properties</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Completed & Ongoing Landmark Projects -->
+  <url>
+    <loc>https://REPLACE-WITH-DOMAIN.com/projects</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Headquarters & Site Offices Contact -->
+  <url>
+    <loc>https://REPLACE-WITH-DOMAIN.com/contact</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+</urlset>
