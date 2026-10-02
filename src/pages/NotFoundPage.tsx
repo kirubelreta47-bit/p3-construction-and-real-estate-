@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSEO, Link } from '../router';
 import { ArrowLeft, Home, Building2, Calculator, HardHat, Compass, PhoneCall } from 'lucide-react';
+import { StorysetConstruction } from '../components/StorysetConstruction';
 
 export const NotFoundPage: React.FC = () => {
   useSEO({
@@ -13,7 +14,12 @@ export const NotFoundPage: React.FC = () => {
   return (
     <main className="min-h-[75vh] flex items-center justify-center py-20 px-4">
       <div className="max-w-2xl w-full text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono uppercase tracking-widest mb-6">
+        {/* Animated Storyset Construction Illustration */}
+        <div className="max-w-[280px] sm:max-w-xs mx-auto mb-6">
+          <StorysetConstruction className="w-full h-auto" />
+        </div>
+
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono uppercase tracking-widest mb-4">
           <span>Error 404 • Missing Blueprint</span>
         </div>
 

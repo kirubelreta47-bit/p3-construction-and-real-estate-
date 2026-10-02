@@ -58,7 +58,7 @@ export const BUSINESS_CONFIG = {
     }
   ],
 
-  // Dual Physical Sites in Addis Ababa
+  // Office Locations in Addis Ababa
   offices: [
     {
       id: 'hq-22-mazoria',
@@ -80,16 +80,16 @@ export const BUSINESS_CONFIG = {
       embedUrl: 'https://maps.google.com/maps?q=9.0142,38.7845&hl=en&z=15&output=embed'
     },
     {
-      id: 'site-haile-garment',
-      name: 'Haile Garment Site, Precast & Operations Yard',
+      id: 'branch-haile-garment',
+      name: 'Haile Garment Branch & Operations Office',
       area: 'Haile Garment Corridor',
       streetAddress: 'Haile Garment - CDC, WPQM+8H2', // TODO: VERIFY WITH CLIENT
       locality: 'Addis Ababa',
       region: 'Addis Ababa',
       postalCode: '1000',
       country: 'ET',
-      focus: 'Precast Engineering, Heavy Plant Equipment, Material Testing & Field Operations',
-      hours: 'Mon – Sat: 7:30 AM – 6:00 PM', // TODO: VERIFY WITH CLIENT
+      focus: 'Branch Office, Engineering Advisory & Regional Operations Management',
+      hours: 'Mon – Sat: 8:00 AM – 6:00 PM', // TODO: VERIFY WITH CLIENT
       phone: '+251 91 123 7890', // TODO: VERIFY WITH CLIENT
       coordinates: {
         latitude: 8.9377004, // TODO: VERIFY WITH CLIENT

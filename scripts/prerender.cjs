@@ -308,7 +308,7 @@ const routes = [
     outputPath: 'contact/index.html',
     aliasPath: 'contact.html',
     title: 'Contact P3 Construction | Addis Ababa',
-    description: 'Contact P3 Construction Group in Addis Ababa. Visit our 22 Mazoria Sales HQ or Haile Garment operations yard. Call +251 11 661 4455.',
+    description: 'Contact P3 Construction Group in Addis Ababa. Visit our 22 Mazoria Executive HQ or Haile Garment Branch Office. Call +251 11 661 4455.',
     robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     jsonLd: {
       '@context': 'https://schema.org',

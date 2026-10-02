@@ -9,10 +9,9 @@ import heroBgImage from '../assets/hero-bg.webp';
 interface HeroProps {
   onOpenQuote: () => void;
   onExploreProperties: () => void;
-  onOpenBrochure?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onExploreProperties, onOpenBrochure }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onExploreProperties }) => {
   return (
     <section
       id="top"
@@ -97,15 +96,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onExploreProperties, on
               <HardHat className="w-4 h-4 text-[#d4af37]" />
               <span>REQUEST CONSULTATION</span>
             </button>
-
-            {onOpenBrochure && (
-              <button
-                onClick={onOpenBrochure}
-                className="px-5 py-3.5 sm:py-4 bg-white/5 hover:bg-white/10 text-white/90 hover:text-white text-xs font-bold uppercase tracking-wider rounded-xl border border-white/10 transition-all duration-200 cursor-pointer backdrop-blur-md flex items-center gap-1.5"
-              >
-                <span>2026 DOSSIER PDF</span>
-              </button>
-            )}
           </motion.div>
         </div>
       </div>

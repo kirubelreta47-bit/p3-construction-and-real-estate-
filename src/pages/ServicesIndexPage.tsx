@@ -8,7 +8,8 @@ import {
   ArrowRight, 
   ShieldCheck, 
   CheckCircle2,
-  PhoneCall
+  PhoneCall,
+  FileCheck
 } from 'lucide-react';
 import { useSEO, Link } from '../router';
 import { COMPANY_INFO } from '../data';
@@ -18,9 +19,10 @@ import { SITE_URL } from '../config/site';
 
 interface ServicesIndexPageProps {
   onOpenQuote?: (service?: string) => void;
+  onOpenBrochure?: () => void;
 }
 
-export const ServicesIndexPage: React.FC<ServicesIndexPageProps> = ({ onOpenQuote }) => {
+export const ServicesIndexPage: React.FC<ServicesIndexPageProps> = ({ onOpenQuote, onOpenBrochure }) => {
   useSEO({
     title: 'Construction Services Addis Ababa | P3 Group',
     description: 'Class-1 general contracting, structural engineering, BOQ estimation, and soil investigation services across Addis Ababa and greater Ethiopia.',
@@ -186,13 +188,23 @@ export const ServicesIndexPage: React.FC<ServicesIndexPageProps> = ({ onOpenQuot
           <p className="text-xs sm:text-sm text-white/70 max-w-lg mx-auto leading-relaxed">
             Our multi-disciplinary team is ready to consult on your residential or commercial project anywhere in Addis Ababa.
           </p>
-          <div className="pt-2">
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
             <button
-              onClick={() => onOpenQuote('General Engineering Consultation')}
+              onClick={() => onOpenQuote && onOpenQuote('General Engineering Consultation')}
               className="px-8 py-3.5 bg-gradient-to-r from-[#e6ca65] via-[#d4af37] to-[#b8932b] hover:from-[#d4af37] hover:to-[#a68221] text-[#0a0b0e] text-xs font-black uppercase tracking-wider rounded-xl shadow-lg shadow-[#d4af37]/20 transition-all transform hover:-translate-y-0.5 cursor-pointer"
             >
               Book Engineering Consultation
             </button>
+
+            {onOpenBrochure && (
+              <button
+                onClick={onOpenBrochure}
+                className="px-6 py-3.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold uppercase tracking-wider rounded-xl border border-white/10 hover:border-[#d4af37]/50 transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <FileCheck className="w-4 h-4 text-[#d4af37]" />
+                <span>Download 2026 Profile (PDF)</span>
+              </button>
+            )}
           </div>
         </div>
       </footer>

@@ -13,12 +13,10 @@ import { COMPANY_INFO } from '../data';
 
 interface TrustCredentialsBarProps {
   onOpenQuote: () => void;
-  onOpenBrochure?: () => void;
 }
 
 export const TrustCredentialsBar: React.FC<TrustCredentialsBarProps> = ({ 
-  onOpenQuote,
-  onOpenBrochure 
+  onOpenQuote 
 }) => {
   return (
     <section className="bg-[#0e1117] border-y border-[#d4af37]/20 relative z-20 shadow-xl">
@@ -47,17 +45,8 @@ export const TrustCredentialsBar: React.FC<TrustCredentialsBarProps> = ({
             </div>
           </div>
 
-          {/* Right: Quick Action Buttons (Brochure PDF & Direct Call) */}
+          {/* Right: Direct Call Quick Action */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {onOpenBrochure && (
-              <button
-                onClick={onOpenBrochure}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/90 hover:text-white border border-white/10 text-xs font-bold transition-colors cursor-pointer"
-              >
-                <FileCheck2 className="w-3.5 h-3.5 text-[#d4af37]" />
-                <span>2026 Profile PDF</span>
-              </button>
-            )}
 
             <a
               href={`tel:${COMPANY_INFO.phone1.replace(/\s+/g, '')}`}

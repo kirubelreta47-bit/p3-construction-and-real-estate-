@@ -154,7 +154,7 @@ export const TurnkeyConstructionPage: React.FC<TurnkeyConstructionPageProps> = (
             Planning a Commercial or Residential High-Rise?
           </h2>
           <p className="text-xs sm:text-sm text-white/70 max-w-lg mx-auto leading-relaxed">
-            Partner with Ethiopia's certified Class-1 general contractor. Visit our 22 Mazoria executive office or Haile Garment site yard for a formal project assessment.
+            Partner with Ethiopia's certified Class-1 general contractor. Visit our 22 Mazoria executive office or Haile Garment branch office for a formal project assessment.
           </p>
           <div className="pt-2">
             <button

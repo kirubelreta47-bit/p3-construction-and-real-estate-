@@ -102,11 +102,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuote, onOpenBrochure }) =
                 </div>
               </div>
 
-              {/* Site 2 */}
+              {/* Office 2 */}
               <div className="p-3 bg-white/5 rounded-xl border border-white/5 space-y-1">
                 <span className="font-bold text-white text-xs flex items-center gap-1.5">
-                  <HardHat className="w-3.5 h-3.5 text-[#d4af37]" />
-                  <span>Haile Garment Operations & Precast Yard</span>
+                  <Building2 className="w-3.5 h-3.5 text-[#d4af37]" />
+                  <span>Haile Garment Branch & Operations Office</span>
                 </span>
                 <p className="text-white/60 text-[11px] leading-relaxed">
                   Haile Garment - CDC, WPQM+8H2, Addis Ababa
@@ -115,7 +115,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuote, onOpenBrochure }) =
                   <a href={`tel:${COMPANY_INFO.phone2.replace(/\s+/g, '')}`} className="text-[#d4af37] font-mono hover:underline">
                     {COMPANY_INFO.phone2}
                   </a>
-                  <span className="text-white/40 font-mono">Field: 7:30 AM – 6:00 PM</span>
+                  <span className="text-white/40 font-mono">Mon–Sat: 8:00 AM – 6:00 PM</span>
                 </div>
               </div>
 
@@ -211,7 +211,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuote, onOpenBrochure }) =
           <div className="flex items-center gap-4 text-white/60">
             <span>22 Mazoria HQ</span>
             <span>•</span>
-            <span>Haile Garment Yard</span>
+            <span>Haile Garment Office</span>
             <span>•</span>
             <span>MoWUD Class-1 GC</span>
           </div>

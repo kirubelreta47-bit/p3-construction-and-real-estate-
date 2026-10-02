@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   CheckCircle2, 
   ArrowRight, 
@@ -10,8 +10,12 @@ import {
   Clock, 
   Coins, 
   Sparkles, 
-  Layers 
+  Layers,
+  Compass,
+  Camera
 } from 'lucide-react';
+import { StorysetConstruction } from './StorysetConstruction';
+import { StorysetArchitect } from './StorysetArchitect';
 
 interface SplitFeatureBannerProps {
   onOpenQuote: () => void;
@@ -22,6 +26,8 @@ export const SplitFeatureBanner: React.FC<SplitFeatureBannerProps> = ({
   onOpenQuote,
   onOpenEstimator
 }) => {
+  const [activeVisual, setActiveVisual] = useState<'construction' | 'architect' | 'photo'>('construction');
+
   return (
     <section id="about-section" className="py-20 sm:py-28 bg-[#0a0b0e] border-y border-white/10 relative overflow-hidden text-white">
       
@@ -31,47 +37,123 @@ export const SplitFeatureBanner: React.FC<SplitFeatureBannerProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left Column: Real Site Engineering Photo Card */}
+          {/* Left Column: Interactive Storyset Animated SVG & Field Photo Showcase */}
           <motion.div 
             initial={{ opacity: 0, x: -30, scale: 0.95 }}
             whileInView={{ opacity: 1, x: 0, scale: 1 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="lg:col-span-6 relative"
+            className="lg:col-span-6 relative flex flex-col items-center"
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/15 aspect-[4/3] sm:aspect-[16/11] group bg-black">
-              <img 
-                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200&auto=format&fit=crop"
-                alt="P3 Construction Group Lead Structural Engineer on Site in Addis Ababa" 
-                width="1200"
-                height="825"
-                loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              
-              {/* Overlay Gradient for contrast */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/30" />
-
-              {/* Floating Engineer Badge in bottom-left */}
-              <motion.div 
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="absolute bottom-4 left-4 right-4 sm:right-auto bg-[#12151b]/95 backdrop-blur-md px-4 py-3 rounded-xl shadow-xl border border-white/15 flex items-center gap-3 text-left"
+            {/* Visual Switcher Tabs */}
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-black/60 border border-white/10 mb-4 backdrop-blur-md self-start">
+              <button
+                onClick={() => setActiveVisual('construction')}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  activeVisual === 'construction'
+                    ? 'bg-[#d4af37] text-[#0a0b0e] shadow-md font-black'
+                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                }`}
               >
-                <div className="w-10 h-10 rounded-xl bg-[#d4af37] text-[#0a0b0e] flex items-center justify-center font-bold shadow-sm">
-                  <HardHat className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-white font-sans">Eng. Dagnachew T. (PE)</div>
-                  <div className="text-[11px] text-white/60 font-mono">Lead Structural Resident Auditor</div>
-                </div>
-              </motion.div>
+                <HardHat className="w-3.5 h-3.5" />
+                <span>Construction (SVG)</span>
+              </button>
 
-              {/* Top Floating Badge ("CLASS 1 GC") */}
-              <div className="absolute top-4 right-4 bg-[#d4af37] text-[#0a0b0e] text-xs font-bold font-mono px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5" />
+              <button
+                onClick={() => setActiveVisual('architect')}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  activeVisual === 'architect'
+                    ? 'bg-[#d4af37] text-[#0a0b0e] shadow-md font-black'
+                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <Compass className="w-3.5 h-3.5" />
+                <span>Architect (SVG)</span>
+              </button>
+
+              <button
+                onClick={() => setActiveVisual('photo')}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  activeVisual === 'photo'
+                    ? 'bg-[#d4af37] text-[#0a0b0e] shadow-md font-black'
+                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <Camera className="w-3.5 h-3.5" />
+                <span>Site Photo</span>
+              </button>
+            </div>
+
+            {/* Display Area */}
+            <div className="w-full relative rounded-3xl overflow-hidden shadow-2xl border border-white/15 aspect-[4/3] sm:aspect-[16/12] bg-[#12151b] flex items-center justify-center p-4">
+              <AnimatePresence mode="wait">
+                {activeVisual === 'construction' && (
+                  <motion.div
+                    key="anim-construction"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full h-full flex flex-col items-center justify-center relative"
+                  >
+                    <StorysetConstruction className="w-full h-full max-h-[340px]" />
+                    <div className="absolute top-2 right-2 bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#e6ca65] text-[10px] font-mono font-bold px-2 py-0.5 rounded-md">
+                      Animated Storyset SVG
+                    </div>
+                  </motion.div>
+                )}
+
+                {activeVisual === 'architect' && (
+                  <motion.div
+                    key="anim-architect"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full h-full flex flex-col items-center justify-center relative"
+                  >
+                    <StorysetArchitect className="w-full h-full max-h-[340px]" />
+                    <div className="absolute top-2 right-2 bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#e6ca65] text-[10px] font-mono font-bold px-2 py-0.5 rounded-md">
+                      Animated Storyset SVG
+                    </div>
+                  </motion.div>
+                )}
+
+                {activeVisual === 'photo' && (
+                  <motion.div
+                    key="anim-photo"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full h-full relative"
+                  >
+                    <img 
+                      src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200&auto=format&fit=crop"
+                      alt="P3 Construction Group Lead Structural Engineer on Site in Addis Ababa" 
+                      width="1200"
+                      height="825"
+                      loading="lazy"
+                      className="w-full h-full object-cover rounded-2xl"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/30 rounded-2xl" />
+
+                    <div className="absolute bottom-3 left-3 bg-[#12151b]/95 backdrop-blur-md px-3.5 py-2 rounded-xl shadow-xl border border-white/15 flex items-center gap-2.5 text-left">
+                      <div className="w-8 h-8 rounded-lg bg-[#d4af37] text-[#0a0b0e] flex items-center justify-center font-bold">
+                        <HardHat className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white">Eng. Dagnachew T. (PE)</div>
+                        <div className="text-[10px] text-white/60 font-mono">Resident Structural Engineer</div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Top Floating Badge */}
+              <div className="absolute bottom-3 right-3 bg-[#d4af37] text-[#0a0b0e] text-[11px] font-bold font-mono px-2.5 py-1 rounded-lg shadow-lg flex items-center gap-1.5 z-10">
+                <ShieldCheck className="w-3 h-3" />
                 <span>MoWUD CLASS-1</span>
               </div>
             </div>

@@ -9,7 +9,6 @@ import {
   Copy, 
   Check, 
   Building2,
-  HardHat,
   Sparkles,
   ArrowRight
 } from 'lucide-react';
@@ -43,10 +42,10 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ onOpenQuote })
           <div>
             <div className="inline-flex items-center gap-2 bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider font-mono mb-2">
               <MapPin className="w-3.5 h-3.5 text-[#d4af37]" />
-              <span>DUAL ADDIS ABABA LOCATIONS</span>
+              <span>OFFICE LOCATIONS IN ADDIS ABABA</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black font-sans text-white tracking-tight">
-              Our Offices & Construction Yards
+              Our Office Locations
             </h2>
           </div>
 
@@ -64,7 +63,7 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ onOpenQuote })
                       : 'text-white/70 hover:text-white hover:bg-white/5'
                   }`}
                 >
-                  {sIdx === 0 ? <Building2 className="w-3.5 h-3.5" /> : <HardHat className="w-3.5 h-3.5" />}
+                  <Building2 className="w-3.5 h-3.5" />
                   <span>{site.area}</span>
                 </button>
               );
@@ -106,7 +105,7 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ onOpenQuote })
 
             {/* Bottom Tag */}
             <div className="absolute bottom-3 left-3 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-lg border border-white/15 text-xs text-white/90 font-mono">
-              <span className="text-[#d4af37] font-bold">{activeSite.area}</span> • Active Addis Site
+              <span className="text-[#d4af37] font-bold">{activeSite.area}</span> • Office Location
             </div>
           </motion.div>
 
@@ -121,7 +120,7 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ onOpenQuote })
             <div className="space-y-4">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#d4af37] font-mono block mb-1">
-                  Site Profile
+                  Office Profile
                 </span>
                 <h3 className="text-lg sm:text-xl font-bold font-sans text-white">
                   {activeSite.name}

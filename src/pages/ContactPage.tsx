@@ -13,7 +13,7 @@ interface ContactPageProps {
 export const ContactPage: React.FC<ContactPageProps> = ({ onOpenQuote }) => {
   useSEO({
     title: 'Contact P3 Construction | Addis Ababa',
-    description: 'Contact P3 Construction Group in Addis Ababa. Visit our 22 Mazoria Sales HQ or Haile Garment operations yard. Call +251 11 661 4455.',
+    description: 'Contact P3 Construction Group in Addis Ababa. Visit our 22 Mazoria Executive HQ or Haile Garment Branch Office. Call +251 11 661 4455.',
     canonicalPath: '/contact',
     jsonLd: {
       '@context': 'https://schema.org',
@@ -55,7 +55,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenQuote }) => {
           </span>
         </h1>
         <p className="text-xs sm:text-sm text-white/70 max-w-xl mt-2 leading-relaxed">
-          Visit our 22 Mazoria Executive & Sales Headquarters or our Haile Garment Engineering & Precast Operations Yard.
+          Visit our 22 Mazoria Executive Headquarters or our Haile Garment Branch Office.
         </p>
       </header>
 

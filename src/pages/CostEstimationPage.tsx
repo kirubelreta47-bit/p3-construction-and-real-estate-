@@ -11,7 +11,8 @@ import {
   Building2, 
   PhoneCall,
   Clock,
-  Layers
+  Layers,
+  FileCheck
 } from 'lucide-react';
 import { useSEO, Link } from '../router';
 import { COMPANY_INFO } from '../data';
@@ -20,9 +21,10 @@ import { BUSINESS_CONFIG } from '../config/business';
 
 interface CostEstimationPageProps {
   onOpenQuote: (service?: string) => void;
+  onOpenBrochure?: () => void;
 }
 
-export const CostEstimationPage: React.FC<CostEstimationPageProps> = ({ onOpenQuote }) => {
+export const CostEstimationPage: React.FC<CostEstimationPageProps> = ({ onOpenQuote, onOpenBrochure }) => {
   useSEO({
     title: 'Construction Cost Estimation Addis Ababa | P3',
     description: 'Accurate construction cost estimation, BOQ preparation, and structural budgeting in Addis Ababa, Ethiopia. Get certified MoWUD estimates.',
@@ -254,13 +256,23 @@ export const CostEstimationPage: React.FC<CostEstimationPageProps> = ({ onOpenQu
           <p className="text-xs sm:text-sm text-white/70 max-w-lg mx-auto leading-relaxed">
             Speak directly with our senior quantity surveyors at 22 Mazoria Executive HQ. Send your architectural drawings for an initial preliminary estimate.
           </p>
-          <div className="pt-2">
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
             <button
               onClick={() => onOpenQuote('Construction Cost Estimation')}
               className="px-8 py-3.5 bg-gradient-to-r from-[#e6ca65] via-[#d4af37] to-[#b8932b] hover:from-[#d4af37] hover:to-[#a68221] text-[#0a0b0e] text-xs font-black uppercase tracking-wider rounded-xl shadow-lg shadow-[#d4af37]/20 transition-all transform hover:-translate-y-0.5 cursor-pointer"
             >
               Get Free Cost Consultation
             </button>
+
+            {onOpenBrochure && (
+              <button
+                onClick={onOpenBrochure}
+                className="px-6 py-3.5 bg-white/5 hover:bg-white/10 text-white text-xs font-bold uppercase tracking-wider rounded-xl border border-white/10 hover:border-[#d4af37]/50 transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <FileCheck className="w-4 h-4 text-[#d4af37]" />
+                <span>Download 2026 Rate Guide (PDF)</span>
+              </button>
+            )}
           </div>
         </div>
       </footer>

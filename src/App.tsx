@@ -59,7 +59,6 @@ function AppContent() {
         return (
           <HomePage
             onOpenQuote={handleOpenQuoteWithService}
-            onOpenBrochure={() => setBrochureModalOpen(true)}
             onSelectProject={(proj) => setSelectedProject(proj)}
             onSelectProperty={(prop) => setSelectedProperty(prop)}
             onSelectArticle={(art) => setSelectedArticle(art)}
@@ -69,12 +68,14 @@ function AppContent() {
         return (
           <ServicesIndexPage
             onOpenQuote={(service) => handleOpenQuoteWithService(service)}
+            onOpenBrochure={() => setBrochureModalOpen(true)}
           />
         );
       case '/services/cost-estimation':
         return (
           <CostEstimationPage
             onOpenQuote={(service) => handleOpenQuoteWithService(service)}
+            onOpenBrochure={() => setBrochureModalOpen(true)}
           />
         );
       case '/services/structural-engineering':
@@ -100,6 +101,7 @@ function AppContent() {
           <PropertiesPage
             onSelectProperty={(prop) => setSelectedProperty(prop)}
             onOpenInquiry={handleOpenPropertyInquiry}
+            onOpenBrochure={() => setBrochureModalOpen(true)}
           />
         );
       case '/projects':
@@ -107,6 +109,7 @@ function AppContent() {
           <ProjectsPage
             onSelectProject={(proj) => setSelectedProject(proj)}
             onOpenQuote={() => handleOpenPropertyInquiry()}
+            onOpenBrochure={() => setBrochureModalOpen(true)}
           />
         );
       case '/contact':

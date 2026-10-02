@@ -2,32 +2,41 @@ import React from 'react';
 import { useSEO, Link } from '../router';
 import { RealEstateSection } from '../components/RealEstateSection';
 import { RealEstateProperty } from '../types';
+import { BUSINESS_CONFIG } from '../config/business';
+import { SITE_URL } from '../config/site';
+import { FileText, Download } from 'lucide-react';
 
 interface PropertiesPageProps {
   onSelectProperty: (property: RealEstateProperty) => void;
   onOpenInquiry: (propertyTitle?: string) => void;
+  onOpenBrochure?: () => void;
 }
 
 export const PropertiesPage: React.FC<PropertiesPageProps> = ({
   onSelectProperty,
-  onOpenInquiry
+  onOpenInquiry,
+  onOpenBrochure
 }) => {
   useSEO({
     title: 'Apartments For Sale Addis Ababa | P3 Real Estate',
-    description: 'Luxury apartments, penthouses and commercial spaces for sale in 22 Mazoria and Haile Garment, Addis Ababa. 100% legal title deeds guaranteed.',
+    description: 'Browse verified luxury apartments and penthouses for sale in 22 Mazoria and Haile Garment, Addis Ababa. Title deed (Yekartab Bet) guaranteed.',
     canonicalPath: '/properties',
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'RealEstateAgent',
-      'name': 'P3 Real Estate Development Addis Ababa',
-      'telephone': '+251-11-661-4455',
+      'name': `${BUSINESS_CONFIG.legalName} - Luxury Real Estate Addis Ababa`,
+      'url': `${SITE_URL}/properties`,
+      'telephone': BUSINESS_CONFIG.primaryPhone,
+      'email': BUSINESS_CONFIG.email,
       'address': {
         '@type': 'PostalAddress',
-        'streetAddress': '22 Mazoria, P3 Plaza, 4th Floor',
-        'addressLocality': 'Addis Ababa',
-        'addressCountry': 'ET'
+        'streetAddress': BUSINESS_CONFIG.offices[0].streetAddress,
+        'addressLocality': BUSINESS_CONFIG.offices[0].locality,
+        'addressRegion': BUSINESS_CONFIG.offices[0].region,
+        'postalCode': BUSINESS_CONFIG.offices[0].postalCode,
+        'addressCountry': BUSINESS_CONFIG.offices[0].country
       },
-      'priceRange': 'ETB 9,500,000 - 29,000,000'
+      'priceRange': BUSINESS_CONFIG.propertyPriceRange
     }
   });
 
@@ -62,6 +71,40 @@ export const PropertiesPage: React.FC<PropertiesPageProps> = ({
         onSelectProperty={onSelectProperty}
         onOpenInquiry={onOpenInquiry}
       />
+
+      {/* 2026 Price List & Floor Plans PDF Resource Card */}
+      {onOpenBrochure && (
+        <section aria-labelledby="dossier-heading" className="max-w-7xl mx-auto px-4 sm:px-8 mt-14">
+          <div className="bg-gradient-to-r from-[#12151b] via-[#1a1f29] to-[#12151b] border border-[#d4af37]/35 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-[#d4af37]/10 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
+              <div className="space-y-3 max-w-2xl">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#e6ca65] text-xs font-mono font-bold uppercase tracking-wider">
+                  <FileText className="w-3.5 h-3.5 text-[#d4af37]" />
+                  <span>2026 Investor & Homebuyer Dossier</span>
+                </div>
+                
+                <h2 id="dossier-heading" className="text-2xl sm:text-3xl font-bold font-sans text-white">
+                  Download 2026 Apartment Price List & Floor Plans (PDF)
+                </h2>
+                
+                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                  Detailed architectural layouts (2 to 4-bedroom units, 128 – 245 m²), itemized ETB and USD price schedules, diaspora financing escrow terms (Commercial Bank of Ethiopia & Awash Bank), and title deed documentation.
+                </p>
+              </div>
+
+              <button
+                onClick={onOpenBrochure}
+                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-gradient-to-r from-[#e6ca65] via-[#d4af37] to-[#b8932b] hover:from-[#d4af37] hover:to-[#a68221] text-[#0a0b0e] font-black text-xs uppercase tracking-wider rounded-xl shadow-xl shadow-[#d4af37]/25 hover:scale-105 transition-all shrink-0 cursor-pointer"
+              >
+                <Download className="w-4 h-4 text-[#0a0b0e]" />
+                <span>Download 2026 Price Guide (PDF)</span>
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
     </article>
   );
 };

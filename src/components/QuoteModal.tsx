@@ -193,7 +193,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                       className="w-full px-4 py-2.5 bg-black/50 border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:border-[#d4af37]"
                     >
                       <option value="22 Mazoria Sales HQ">22 Mazoria Executive HQ (P3 Plaza)</option>
-                      <option value="Haile Garment Site Operations">Haile Garment Site Operations</option>
+                      <option value="Haile Garment Branch Office">Haile Garment Branch Office</option>
                     </select>
                   </div>
                 </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSEO } from '../router';
 import { Hero } from '../components/Hero';
-import { TrustCredentialsBar } from '../components/TrustCredentialsBar';
 import { RealEstateSection } from '../components/RealEstateSection';
 import { CoreDisciplinesSection } from '../components/CoreDisciplinesSection';
 import { ProcessSection } from '../components/ProcessSection';
@@ -20,7 +19,6 @@ import { SITE_URL } from '../config/site';
 
 interface HomePageProps {
   onOpenQuote: (serviceTitle?: string, typology?: string) => void;
-  onOpenBrochure: () => void;
   onSelectProject: (proj: ProjectItem) => void;
   onSelectProperty: (prop: RealEstateProperty) => void;
   onSelectArticle: (art: NewsArticle) => void;
@@ -28,7 +26,6 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({
   onOpenQuote,
-  onOpenBrochure,
   onSelectProject,
   onSelectProperty,
   onSelectArticle
@@ -129,16 +126,9 @@ export const HomePage: React.FC<HomePageProps> = ({
       <Hero
         onOpenQuote={() => onOpenQuote()}
         onExploreProperties={scrollToRealEstate}
-        onOpenBrochure={onOpenBrochure}
       />
 
-      {/* 2. Trust Credentials Bar */}
-      <TrustCredentialsBar
-        onOpenQuote={() => onOpenQuote()}
-        onOpenBrochure={onOpenBrochure}
-      />
-
-      {/* 3. Premier Real Estate Properties Showcase */}
+      {/* 2. Premier Real Estate Properties Showcase */}
       <RealEstateSection
         onSelectProperty={onSelectProperty}
         onOpenInquiry={(title) => onOpenQuote(undefined, title)}

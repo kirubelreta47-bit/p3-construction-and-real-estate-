@@ -56,13 +56,13 @@ export const FloatingActionHub: React.FC<FloatingActionHubProps> = ({ onOpenQuot
       <button
         onClick={onOpenQuote}
         className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#e6ca65] via-[#d4af37] to-[#b8932b] hover:from-[#d4af37] hover:to-[#a68221] text-[#0a0b0e] flex items-center justify-center shadow-xl shadow-[#d4af37]/25 transition-all duration-200 transform hover:scale-110 active:scale-95 group relative cursor-pointer"
-        aria-label="Book a Site Tour / Get Quote"
-        title="Book a Site Tour / Get Quote"
+        aria-label="Book Consultation / Get Quote"
+        title="Book Consultation / Get Quote"
       >
         <Calendar className="w-4 h-4 text-[#0a0b0e]" />
         {/* Desktop Tooltip */}
         <span className="hidden md:group-hover:block absolute right-14 bg-[#0a0b0e] text-white text-xs font-bold px-2.5 py-1 rounded-md border border-white/10 whitespace-nowrap shadow-xl">
-          Book Site Tour / Quote
+          Book Consultation / Quote
         </span>
       </button>
     </aside>
