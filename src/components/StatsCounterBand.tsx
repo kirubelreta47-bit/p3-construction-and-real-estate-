@@ -9,7 +9,7 @@ import {
   KeyRound,
   Sparkles
 } from 'lucide-react';
-
+ 
 interface StatItem {
   id: string;
   icon: 'units' | 'capital' | 'engineers' | 'sites';
